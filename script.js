@@ -42,8 +42,8 @@ function showScreen(screenName) {
         btn.classList.add('hidden');
     }
 
-    // Atualiza ícones Lucide (se disponível)
-    if (window.lucide && lucide.createIcons) lucide.createIcons();
+        // Atualiza ícones Lucide (se disponível)
+        if (globalThis.lucide && lucide.createIcons) lucide.createIcons();
 }
 
 // --- DASHBOARD ---
@@ -221,7 +221,7 @@ function renderTasks(obj) {
         `;
         list.appendChild(el);
     });
-    if (window.lucide && lucide.createIcons) lucide.createIcons();
+        if (globalThis.lucide && lucide.createIcons) lucide.createIcons();
 }
 
 const formTask = document.getElementById('formTask');
@@ -320,5 +320,10 @@ function deleteCurrentObjective() {
 
 // --- INICIALIZAÇÃO ---
 renderDashboard();
-if (window.lucide && lucide.createIcons) lucide.createIcons();
+if (globalThis.lucide && lucide.createIcons) lucide.createIcons();
+// expor funções usadas via atributos onclick para satisfazer o linter (e manter compatibilidade)
+globalThis.toggleTask = toggleTask;
+globalThis.deleteTask = deleteTask;
+globalThis.editTask = editTask;
+globalThis.deleteCurrentObjective = deleteCurrentObjective;
 // === FIM DO ARQUIVO script.js ===
