@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Meu PDI - Plano de Desenvolvimento Individual</title>
+    
+    <!-- Estilos e ícones -->
+    <link rel="stylesheet" href="style.css">
+    <!-- Importação de Ícones (Lucide) -->
+    <script src="https://unpkg.com/lucide@latest"></script>
+    </head>
+<body>
+
+    <div class="container">
+        <!-- HEADER GERAL -->
+        <header class="flex justify-between items-center mb-4">
+            <div>
+                <h1 style="font-size: 1.8rem; font-weight: 800;">Meu PDI</h1>
+                <p class="text-gray">Plano de Desenvolvimento Individual</p>
+            </div>
+            <!-- Botão aparece apenas no Dashboard -->
+            <button id="btnNewObjective" class="btn btn-primary" onclick="showScreen('add-objective')">
+                <i data-lucide="plus"></i> Novo Objetivo
+            </button>
+        </header>
+
+        <!-- TELA 1: DASHBOARD -->
+        <div id="screen-dashboard">
+            <!-- KPIs -->
+            <div class="kpi-grid">
+                <div class="card kpi-card" style="border-top: 4px solid #3b82f6;">
+                    <h3><i data-lucide="bar-chart-3" size="18"></i> Total Objetivos</h3>
+                    <div class="kpi-value" id="kpiTotal">0</div>
+                </div>
+                <div class="card kpi-card" style="border-top: 4px solid #22c55e;">
+                    <h3><i data-lucide="check-circle" size="18"></i> Concluídas</h3>
+                    <div class="kpi-value" id="kpiCompleted">0</div>
+                </div>
+                <div class="card kpi-card" style="border-top: 4px solid #eab308;">
+                    <h3><i data-lucide="circle" size="18"></i> Pendentes</h3>
+                    <div class="kpi-value" id="kpiPending">0</div>
+                </div>
+                <div class="card kpi-card" style="border-top: 4px solid #ef4444;">
+                    <h3><i data-lucide="alert-triangle" size="18"></i> Em Atraso</h3>
+                    <div class="kpi-value" id="kpiLate" style="color: var(--danger)">0</div>
+                </div>
+            </div>
+
+            <h2 class="mb-4">Meus Objetivos</h2>
+            <div id="objectivesList">
+                <!-- A lista será renderizada aqui via JS -->
+            </div>
+        </div>
+
+        <!-- TELA 2: FORMULÁRIO DE OBJETIVO -->
+        <div id="screen-add-objective" class="hidden">
+            <button class="btn btn-ghost mb-4" onclick="showScreen('dashboard')">
+                <i data-lucide="arrow-left"></i> Voltar ao Dashboard
+            </button>
+            
+            <div class="card" style="max-width: 700px; margin: 0 auto;">
+                <h2 class="mb-4">Criar Novo Objetivo</h2>
+                <form id="formObjective">
+                    <label>Nome do Objetivo</label>
+                    <input type="text" id="objTitle" placeholder="Ex: Aprender WaterGems" required>
+
+                    <label>Descrição</label>
+                    <textarea id="objDescription" rows="3" placeholder="Propósito do objetivo..."></textarea>
+
+                    <div class="flex gap-4">
+                        <div style="flex:1">
+                            <label>Data de Início</label>
+                            <input type="date" id="objStart">
+                        </div>
+                        <div style="flex:1">
+                            <label>Data de Entrega</label>
+                            <input type="date" id="objDue">
+                        </div>
+                    </div>
+
+                    <div class="flex justify-between mt-4">
+                        <button type="button" class="btn btn-secondary" onclick="showScreen('dashboard')">Cancelar</button>
+                        <button type="submit" class="btn btn-primary">Salvar Objetivo</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+
+        <!-- TELA 3: DETALHES DO OBJETIVO -->
+        <div id="screen-details" class="hidden">
+            <div class="flex justify-between items-center mb-4">
+                <button class="btn btn-ghost" onclick="showScreen('dashboard')">
+                    <i data-lucide="arrow-left"></i> Voltar
+                </button>
+                <button class="btn btn-danger" onclick="deleteCurrentObjective()">
+                    <i data-lucide="trash-2"></i> Excluir Objetivo
+                </button>
+            </div>
+
+            <!-- Cabeçalho do Objetivo -->
+            <div class="card">
+                <div class="flex justify-between items-start">
+                    <div>
+                        <h1 id="detailTitle" style="font-size: 1.5rem;">Título</h1>
+                        <p id="detailDesc" class="text-gray mt-4">Descrição</p>
+                    </div>
+                    <span id="detailBadge" class="badge">Status</span>
+                </div>
+                <div class="mt-4 p-4 bg-body rounded border">
+                    <div class="progress-container">
+                        <div class="progress-header">
+                            <span>Progresso</span>
+                            <span id="detailPerc">0%</span>
+                        </div>
+                        <div class="progress-bar-bg">
+                            <div id="detailBar" class="progress-bar-fill bg-red" style="width: 0%"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="detail-grid">
+                <!-- Lista de Tarefas -->
+                <div>
+                    <h3 class="mb-4 flex items-center gap-2">
+                        Tarefas Registradas
+                        <span id="taskCountBadge" class="badge bg-body" style="border: 1px solid #ccc">0</span>
+                    </h3>
+                    <div id="taskList">
+                        <!-- Tarefas renderizadas aqui -->
+                    </div>
+                </div>
+
+                <!-- Formulário de Tarefa -->
+                <div>
+                    <div class="card" style="position: sticky; top: 20px;">
+                        <h3 class="mb-4 flex items-center gap-2">
+                            <i data-lucide="plus-circle" class="text-primary"></i> 
+                            <span id="taskFormTitle">Nova Tarefa</span>
+                        </h3>
+                        <form id="formTask">
+                            <input type="hidden" id="taskId"> <!-- Hidden ID para edição -->
+
+                            <label>Nome da Tarefa</label>
+                            <input type="text" id="taskTitle" placeholder="Ex: Calibração" required>
+
+                            <label>Detalhes</label>
+                            <textarea id="taskDetails" rows="2"></textarea>
+
+                            <label>Data Criação</label>
+                            <input type="date" id="taskCreated" required>
+
+                            <label>Data Entrega (Opcional)</label>
+                            <input type="date" id="taskDue">
+
+                            <label>Concluído em (Data)</label>
+                            <input type="date" id="taskCompleted" style="background-color: #f0fdf4;">
+                            <small class="text-gray" style="font-size: 0.7rem;">Preencha para concluir a tarefa</small>
+
+                            <div class="flex gap-2 mt-4">
+                                <button type="button" id="btnCancelTask" class="btn btn-secondary hidden" onclick="resetTaskForm()">Cancelar</button>
+                                <button type="submit" class="btn btn-primary" style="flex:1">Salvar</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>

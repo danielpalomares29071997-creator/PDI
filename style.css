@@ -1,0 +1,267 @@
+/* === INÍCIO DO ARQUIVO style.css ===
+   Se for separar, copie o conteúdo abaixo para um arquivo chamado style.css */
+
+:root {
+            --primary: #2563eb;
+            --primary-hover: #1d4ed8;
+            --bg-body: #f8fafc;
+            --bg-card: #ffffff;
+            --text-main: #1e293b;
+            --text-secondary: #64748b;
+            --border: #e2e8f0;
+            --success: #22c55e;
+            --warning: #eab308;
+            --danger: #ef4444;
+            --radius: 12px;
+            --shadow: 0 1px 3px 0 rgb(0 0 0 / 0.1), 0 1px 2px -1px rgb(0 0 0 / 0.1);
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+        }
+
+        body {
+            background-color: var(--bg-body);
+            color: var(--text-main);
+            padding: 2rem;
+            line-height: 1.5;
+        }
+
+        .container {
+            max-width: 1100px;
+            margin: 0 auto;
+        }
+
+        /* Utilitários */
+        .hidden { display: none !important; }
+        .flex { display: flex; }
+        .flex-col { flex-direction: column; }
+        .items-center { align-items: center; }
+        .justify-between { justify-content: space-between; }
+        .gap-2 { gap: 0.5rem; }
+        .gap-4 { gap: 1rem; }
+        .mt-4 { margin-top: 1rem; }
+        .mb-4 { margin-bottom: 1rem; }
+        .text-sm { font-size: 0.875rem; }
+        .font-bold { font-weight: 700; }
+        .text-gray { color: var(--text-secondary); }
+        .text-red { color: var(--danger); }
+        .text-green { color: var(--success); }
+        /* Pequenos utilitários faltantes usados no HTML */
+        .rounded { border-radius: 8px; }
+        .p-4 { padding: 1rem; }
+        .p-2 { padding: 0.5rem; }
+        .border { border: 1px solid var(--border); }
+        .bg-body { background-color: var(--bg-body); }
+        .text-primary { color: var(--primary); }
+        /* garantir que ícones SVG que usam currentColor recebam a cor */
+        .text-primary svg, .text-primary [data-icon] { stroke: currentColor; }
+        
+        /* Botões */
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            padding: 0.5rem 1rem;
+            border-radius: 8px;
+            border: none;
+            cursor: pointer;
+            font-weight: 500;
+            font-size: 0.9rem;
+            transition: all 0.2s;
+        }
+
+        .btn-primary {
+            background-color: var(--primary);
+            color: white;
+            box-shadow: 0 2px 4px rgba(37, 99, 235, 0.2);
+        }
+        .btn-primary:hover { background-color: var(--primary-hover); }
+
+        .btn-secondary {
+            background-color: white;
+            color: var(--text-main);
+            border: 1px solid var(--border);
+        }
+        .btn-secondary:hover { background-color: #f1f5f9; }
+
+        .btn-ghost {
+            background: transparent;
+            color: var(--text-secondary);
+        }
+        .btn-ghost:hover { background-color: #f1f5f9; color: var(--text-main); }
+
+        .btn-danger {
+            background-color: #fef2f2;
+            color: var(--danger);
+            border: 1px solid #fee2e2;
+        }
+        .btn-danger:hover { background-color: #fee2e2; }
+
+        /* Cards */
+        .card {
+            background-color: var(--bg-card);
+            border-radius: var(--radius);
+            border: 1px solid var(--border);
+            padding: 1.5rem;
+            box-shadow: var(--shadow);
+            margin-bottom: 1rem;
+        }
+
+        /* Inputs */
+        input, textarea, select {
+            width: 100%;
+            padding: 0.6rem;
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            font-size: 0.95rem;
+            margin-top: 0.25rem;
+            margin-bottom: 1rem;
+            outline: none;
+        }
+        input:focus, textarea:focus {
+            border-color: var(--primary);
+            box-shadow: 0 0 0 2px rgba(37, 99, 235, 0.1);
+        }
+        label {
+            font-size: 0.85rem;
+            font-weight: 600;
+            color: var(--text-secondary);
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+        }
+
+        /* Dashboard KPIs */
+        .kpi-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 1rem;
+            margin-bottom: 2rem;
+        }
+        .kpi-card h3 {
+            font-size: 0.9rem;
+            color: var(--text-secondary);
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+        .kpi-value {
+            font-size: 2rem;
+            font-weight: 800;
+            margin-top: 0.5rem;
+        }
+
+        /* Lista de Objetivos */
+        .objective-item {
+            cursor: pointer;
+            transition: transform 0.2s, box-shadow 0.2s;
+        }
+        .objective-item:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.1);
+            border-color: #bfdbfe;
+        }
+
+        /* Barra de Progresso */
+        .progress-container {
+            width: 100%;
+            margin-top: 1rem;
+        }
+        .progress-header {
+            display: flex;
+            justify-content: space-between;
+            font-size: 0.75rem;
+            font-weight: 600;
+            color: var(--text-secondary);
+            margin-bottom: 0.25rem;
+        }
+        .progress-bar-bg {
+            width: 100%;
+            height: 10px;
+            background-color: #e2e8f0;
+            border-radius: 99px;
+            overflow: hidden;
+        }
+        .progress-bar-fill {
+            height: 100%;
+            transition: width 0.5s ease;
+            border-radius: 99px;
+        }
+        .bg-red { background-color: var(--danger); }
+        .bg-yellow { background-color: var(--warning); }
+        .bg-green { background-color: var(--success); }
+
+        /* Badge Status */
+        .badge {
+            padding: 0.25rem 0.5rem;
+            border-radius: 6px;
+            font-size: 0.75rem;
+            font-weight: 700;
+            border: 1px solid transparent;
+        }
+        .badge-green { background: #dcfce7; color: #166534; border-color: #bbf7d0; }
+        .badge-yellow { background: #fef9c3; color: #854d0e; border-color: #fde047; }
+        .badge-red { background: #fee2e2; color: #991b1b; border-color: #fecaca; }
+
+        /* Layout Detalhes */
+        .detail-grid {
+            display: grid;
+            grid-template-columns: 2fr 1fr;
+            gap: 1.5rem;
+        }
+        @media (max-width: 768px) {
+            .detail-grid { grid-template-columns: 1fr; }
+        }
+
+        /* Lista de Tarefas */
+        .task-item {
+            display: flex;
+            gap: 1rem;
+            padding: 1rem;
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            margin-bottom: 0.75rem;
+            background: white;
+        }
+        .task-item.completed {
+            background-color: #f0fdf4;
+            border-color: #bbf7d0;
+        }
+        .task-check {
+            width: 24px;
+            height: 24px;
+            border-radius: 50%;
+            border: 2px solid #cbd5e1;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            flex-shrink: 0;
+            color: white;
+        }
+        .task-check.checked {
+            background-color: var(--success);
+            border-color: var(--success);
+        }
+        .task-content { flex-grow: 1; }
+        .task-title { font-weight: 600; color: var(--text-main); }
+        .task-item.completed .task-title { text-decoration: line-through; color: var(--text-secondary); }
+        
+        .task-actions {
+            display: flex;
+            gap: 0.5rem;
+        }
+        .icon-btn {
+            background: none;
+            border: none;
+            cursor: pointer;
+            color: #94a3b8;
+            padding: 2px;
+        }
+        .icon-btn:hover { color: var(--primary); }
+        .icon-btn.delete:hover { color: var(--danger); }
+
+    /* === FIM DO ARQUIVO style.css === */
